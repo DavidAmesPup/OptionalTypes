@@ -35,6 +35,21 @@ namespace Optionals.Types.Tests.Unit
         }
 
         [Fact]
+        public static void CanSettingNullSetDefined()
+        {
+            //Arrange
+            var subject = new Optional<int?>();
+          //  var x = new Nullable<int>();
+
+            //Act
+            subject = null;
+
+            //Assert
+            Assert.True(subject.IsDefined);
+            Assert.Equal(1, subject.Value);
+        }
+
+        [Fact]
         public static void CanSettingValueInlineSetDefined()
         {
             //Act
