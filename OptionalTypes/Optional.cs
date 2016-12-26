@@ -22,6 +22,8 @@ namespace Optionals.Types
             this.isDefined = true;
         }
 
+       
+
         public bool IsDefined
         {
             get
@@ -95,39 +97,21 @@ namespace Optionals.Types
         {
             return isDefined ? value.ToString() : "";
         }
-        /*
-         * public static implicit operator Null<T>(T value) {
-	return new Null<T>(true, value);
-}
-These shown structures go into the "struct", just in case.
-
-Implicit conversion to primitive type
-The process logically should go both ways, and so there's this:
-
-public static implicit operator T(Null<T> obj) {
-	if (obj.hasValue) {
-		return obj.value;
-	} else throw new Exception("Value is null.");
-}
-         * 
-         * */
+       
 
         public static implicit operator Optional<T>(T value)
         {
+            
             return new Optional<T>(value);
         }
+
+        
 
         public static explicit operator T(Optional<T> value)
         {
             return value.Value;
         }
-
-        public static implicit operator Optional<T>(NoValue noValue)
-        {
-            return new Optional<T>(default(T));
-        }
-        public class NoValue { }
-
+       
     }
 
     [System.Runtime.InteropServices.ComVisible(true)]

@@ -17,7 +17,7 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
 
-    "Optionals.Types": "1.0.0-*",
+    "OptionalTypes": "1.0.0-*",
     "Swashbuckle": "6.0.0-beta902"
   },
 
