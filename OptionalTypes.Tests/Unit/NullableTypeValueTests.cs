@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Optionals.Types;
+using OptionalTypes;
 
 using Xunit;
 
@@ -28,7 +28,7 @@ namespace OptionalTypes.Tests.Unit
 
             //Act
             subject = 1;
-
+           
             //Assert
             Assert.True(subject.IsDefined);
             Assert.Equal(1, subject.Value);

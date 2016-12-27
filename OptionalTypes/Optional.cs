@@ -1,17 +1,13 @@
 ﻿using System;
-
-namespace Optionals.Types
+using System.Collections.Generic;
+//using System.Runtime.Serialization;
+/*
+ * http://www.paraesthesia.com/archive/2015/02/13/advanced-object-serialization-in-web-api/
+ */
+namespace OptionalTypes
 {
-    using System.Globalization;
-    using System.Reflection;
-    using System.Collections.Generic;
-    using System.Runtime;
-    using System.Runtime.CompilerServices;
-    using System.Security;
-
-
-   // [Serializable]
-    public struct Optional<T> //where T : struct
+    // [Serializable]
+    public struct Optional<T> : IOptional
     {
         private bool isDefined;
         internal T value;
@@ -39,10 +35,20 @@ namespace Optionals.Types
                 if (!isDefined)
                 {
                     return default(T);
-
-                    // throw new InvalidOperationException("No value specified");
                 }
                 return value;
+            }
+        }
+
+        object IOptional.Value
+        {
+            get
+            {
+                if (!IsDefined)
+                    return default(T);
+
+                return (object) value;
+
             }
         }
 
@@ -97,7 +103,6 @@ namespace Optionals.Types
         {
             return isDefined ? value.ToString() : "";
         }
-       
 
         public static implicit operator Optional<T>(T value)
         {
@@ -105,13 +110,19 @@ namespace Optionals.Types
             return new Optional<T>(value);
         }
 
-        
 
+        
         public static explicit operator T(Optional<T> value)
         {
             return value.Value;
         }
-       
+        /*
+        public void GetObjectData(SerializationInfo info,
+            StreamingContext context)
+        {
+            throw new System.NotImplementedException();
+        }
+        *
     }
 
     [System.Runtime.InteropServices.ComVisible(true)]

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Converters;
 using Optionals.Samples.NetCore.repository;
 using Swashbuckle.Swagger.Model;
 
@@ -29,9 +30,14 @@ namespace Optionals.Samples.NetCore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddMvc();
-          
+
+            // Add framework services.
+            //           services.AddMvc().AddJsonOptions( o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
+            //  services.AddMvc().AddJsonOptions(o => o.SerializerSettings.ContractResolver = new OptionalContractResolver());
+
+            // services.AddJsonFormatters(o => o...);;
+
             services.AddSwaggerGen();
             services.AddSingleton<IContactRepository, InMemoryContactRepository>();
             services.ConfigureSwaggerGen(options =>

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Optionals.Types")]
+[assembly: AssemblyProduct("OptionalTypes.JsonConverters.Tests")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-//[assembly: Guid("594cc251-a2d0-4cd0-96c5-a6d24d0d487e")]
+[assembly: Guid("e4871399-7483-4878-ab62-f1dccfae5fea")]

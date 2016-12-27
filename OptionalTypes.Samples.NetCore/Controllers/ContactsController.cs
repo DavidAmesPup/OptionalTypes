@@ -25,7 +25,13 @@ namespace Optionals.Samples.NetCore.Controllers
         [Produces(typeof(IEnumerable<Contact>))]
         public IActionResult Get()
         {
-            return new OkObjectResult(_contactRepository.GetAll());
+            return new OkObjectResult(_contactRepository.GetAll().Select(x =>
+            {
+                var contactDto = new ContactDto();
+
+                ContactMapper.Map(x, contactDto);
+                return contactDto;
+            }));
         }
 
         [HttpGet("{id}")]

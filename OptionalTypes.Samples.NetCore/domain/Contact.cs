@@ -15,7 +15,7 @@ namespace Optionals.Samples.NetCore.domain
         public string LastName { get; set; }
         
         public string StreetAddress { get; set; }
-        public int? CountryId { get; set; }
+        public long? CountryId { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
     }
