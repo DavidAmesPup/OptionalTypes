@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace OptionalTypes.JsonConverters
 {
@@ -32,12 +33,22 @@ namespace OptionalTypes.JsonConverters
             object existingValue,
             JsonSerializer serializer)
         {
-            //  return Convert.ChangeType(existingValue, contract.NonNullableUnderlyingType);
 
-            //TODO: cast value to the underlying type, eg, Long to int
-            var target = Activator.CreateInstance(objectType, reader.Value);
+            var existingOptional = existingValue as IOptional;
+            
+            // Return null, because the Optional is a struct, it will be created as a non-null
+            // string with isDefined set to false.
+            if (reader.TokenType== JsonToken.Undefined)
+                return null;
 
-            return target;
+
+            object value = reader.Value;
+
+            if (value != null && value.GetType() != existingOptional.GetBaseType())
+                value =  Convert.ChangeType(value, existingOptional.GetBaseType());
+
+            return Activator.CreateInstance(objectType, value);
+            
         }
 
         public override bool CanConvert(Type objectType)

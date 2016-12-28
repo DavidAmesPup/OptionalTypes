@@ -9,5 +9,6 @@ namespace OptionalTypes
     {
         bool IsDefined { get; }
         object Value { get;  }
+        Type GetBaseType();
     }
 }

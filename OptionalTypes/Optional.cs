@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+
 //using System.Runtime.Serialization;
 /*
  * http://www.paraesthesia.com/archive/2015/02/13/advanced-object-serialization-in-web-api/
@@ -18,7 +20,9 @@ namespace OptionalTypes
             this.isDefined = true;
         }
 
-       
+      
+
+
 
         public bool IsDefined
         {
@@ -99,9 +103,31 @@ namespace OptionalTypes
             return isDefined ? value.GetHashCode() : 0;
         }
 
+        public Type GetBaseType()
+        {
+            var t = typeof(T);
+
+            // changed t.IsGenericType to t.GetTypeInfo().IsGenericType
+            if (t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+            {
+                /*
+                if (value == null)
+                {
+                    return default(T);
+                }
+                */
+                t = Nullable.GetUnderlyingType(t);
+            }
+
+            return t;
+        }
+
+
+
+
         public override string ToString()
         {
-            return isDefined ? value.ToString() : "";
+            return isDefined ? value == null? string.Empty : value.ToString() : string.Empty;
         }
 
         public static implicit operator Optional<T>(T value)
@@ -116,13 +142,7 @@ namespace OptionalTypes
         {
             return value.Value;
         }
-        /*
-        public void GetObjectData(SerializationInfo info,
-            StreamingContext context)
-        {
-            throw new System.NotImplementedException();
-        }
-        *
+        
     }
 
     [System.Runtime.InteropServices.ComVisible(true)]
@@ -161,7 +181,7 @@ namespace OptionalTypes
             {
                 throw new ArgumentNullException(nameof(optionalType));
             }
-
+        
             Type result = null;
             if (optionalType.IsGenericType && !optionalType.IsGenericTypeDefinition)
             {
