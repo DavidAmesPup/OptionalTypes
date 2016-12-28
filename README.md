@@ -1,13 +1,13 @@
 # OptionalTypes
-An Optional&lt;T> type &amp; for DotNet that allows you to tell the difference between Null &amp; 'Not Supplied'.
+An Optional&lt;T> type for DotNet that allows you to tell the difference between Null and 'Not Supplied'.
 
 This makes it easier to produce backwards compatible APIs.
 
 
 ### Why?
-When building APIs, it's often useful to be able to distinguish between null (no value entered by the user) and not supplied.
+When building APIs, it's often useful to be able to distinguish between an explicit null value (no value entered by the user) and not supplied by the client application.
 
-Unfortunately, the standard DotNet model patterns make this very difficult to achieve.
+Unfortunately, the standard DotNet dto & binding patterns make this very difficult to achieve.
 
 #### Example
 Consider a simple contact management API that accepts the following JSON packet.
