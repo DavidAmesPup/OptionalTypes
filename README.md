@@ -1,7 +1,7 @@
 # OptionalTypes
 An Optional&lt;T> type &amp; for DotNet that allows you to tell the difference between Null &amp; 'Not Supplied'.
 
-This makes it easer to produce backwards compatible APIs.
+This makes it easier to produce backwards compatible APIs.
 
 
 ### Why?
@@ -119,5 +119,5 @@ This project contains
 
 ### How
 #### Equality Rules
-	Two Optional<T> values are considered equal if T is of the same type AND both of their values are undefiend or equal.
+Two Optional<T> values are considered equal if T is of the same type AND both of their values are undefined or equal.
 	
