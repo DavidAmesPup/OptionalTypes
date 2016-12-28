@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -44,9 +45,30 @@ namespace OptionalTypes.JsonConverters
 
             object value = reader.Value;
 
-            if (value != null && value.GetType() != existingOptional.GetBaseType())
-                value =  Convert.ChangeType(value, existingOptional.GetBaseType());
+            Type underlyingType = existingOptional.GetUnderlyingType();
 
+            if (value == null)
+            {
+               Type baseType = existingOptional.GetBaseType();
+                if (baseType.GetTypeInfo().IsValueType)
+                {
+                    if (!(baseType.GetTypeInfo().IsGenericType && baseType.GetGenericTypeDefinition().Equals(typeof(Nullable<>))))
+                        throw new InvalidCastException($"Cannot convert null to a {existingOptional.GetBaseType()} because it does not allow null values.");
+
+                }
+
+            }
+             
+            if (value != null && value.GetType() != underlyingType)
+                try
+                {
+                    value = Convert.ChangeType(value, underlyingType);
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidCastException($"Cannot convert {reader.Value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
+                }
+             
             return Activator.CreateInstance(objectType, value);
             
         }

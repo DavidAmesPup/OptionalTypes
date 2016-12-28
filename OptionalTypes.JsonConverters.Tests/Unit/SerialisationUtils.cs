@@ -12,6 +12,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit
         public  static StringWriter SerializeDto(object dto)
         {
             JsonSerializer jsonSerializer = new JsonSerializer();
+           
             jsonSerializer.Converters.Add(new OptionalConverter());
             StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonTextWriter(stringWriter);

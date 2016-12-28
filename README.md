@@ -1,13 +1,16 @@
 # OptionalTypes
-Optional&lt;T> type &amp; Model Binder for DotNet Core which allows you to tell the difference between Null &amp; Not Supplied.
+An Optional&lt;T> type &amp; for DotNet that allows you to tell the difference between Null &amp; 'Not Supplied'.
+
+This makes it easer to produce backwards compatible APIs.
+
 
 ### Why?
 When building APIs, it's often useful to be able to distinguish between null (no value entered by the user) and not supplied.
 
-Unfortunately, the standard DotNet model/ModelBinder patterns make this very difficult to achieve.
+Unfortunately, the standard DotNet model patterns make this very difficult to achieve.
 
 #### Example
-Consider a simple contact managemen API that accepts the following JSON packet.
+Consider a simple contact management API that accepts the following JSON packet.
 ```javascript
 {
     "firstName" : "Bob",
@@ -44,7 +47,8 @@ public static void MapDtoToContact(ContactDto contactDto, Contact entity)
 }
 ```
 
-We get a new requirement to support Date of Birth, which optional (ie, on the UI, the user can choose to enter it or not)
+We get a new requirement to support Date of Birth, which is nullable. Ie, the user can choose to supply it or not. 
+
 
 We add a new property to our dto, 
 ```csharp
@@ -101,12 +105,15 @@ or, more simply:
 ```csharp
 entity.DateOfBirth = contactDto.DateOfBirth.GetValueOrDefault(entity.DateOfBirth);
 ```
-In the semver world, we would call this a minor release as it's backwards compatible with the previous version. Of course, we will still need API versioning, but this is only needed for major releases that are no longer backwards compatible.
+In the semver world, we would call this a minor release as it's backwards compatible with the previous version. 
+
+Of course, we will still need API versioning, but this is only needed for major releases that are no longer backwards compatible.
 
 ### What
 This project contains
 * The underlying Optional generic type as a NetStandard 1.0 library
-* An ASP.NET Core model binder.
+* A JsonConverter compatible with DotNet Core.
+* A Swashbuckle formatter to generate correct Swagger documentation.
 * A sample DotNet core application using Swagger as a front-end.
 
 

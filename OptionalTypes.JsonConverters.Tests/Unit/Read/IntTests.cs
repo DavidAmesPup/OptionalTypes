@@ -5,7 +5,7 @@ using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Read
 {
-    public static class NullableIntTests
+    public static class IntTests
     {
 
         [Fact]
@@ -15,7 +15,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             string json = @"{""Value"":42}";
 
             //Act
-            NullableIntDto dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
+            IntDto dto = SerialisationUtils.Deserialize<IntDto>(json);
 
             //Assert
             Assert.True(dto.Value.IsDefined);
@@ -29,33 +29,39 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             //Arrange
             string json = @"{""Value"":"" This is not an int ""}";
 
-            NullableIntDto dto;
+            IntDto dto;
             //Act
             InvalidCastException ex = Assert.Throws<InvalidCastException>(() =>
                 {
-                    dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
+                    dto = SerialisationUtils.Deserialize<IntDto>(json);
                 }
             );
 
         //Assert
            
-            Assert.Equal("Cannot convert  This is not an int  to a System.Nullable`1[System.Int32] because of Input string was not in a correct format.", ex.Message);
+            Assert.Equal("Cannot convert  This is not an int  to a System.Int32 because of Input string was not in a correct format.", ex.Message);
         }
 
 
 
         [Fact]
-        public static void CanReadNullValue()
+        public static void CanNullValueCauseException()
         {
             //Arrange
             string json = @"{""Value"":null}";
 
+            IntDto dto;
             //Act
-            NullableIntDto dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
+            InvalidCastException ex = Assert.Throws<InvalidCastException>(() =>
+            {
+                dto = SerialisationUtils.Deserialize<IntDto>(json);
+            }
+            );
 
             //Assert
-            Assert.True(dto.Value.IsDefined);
-            Assert.Null(dto.Value.Value);
+
+            Assert.Equal("Cannot convert null to a System.Int32 because it does not allow null values.", ex.Message);
+
         }
 
 

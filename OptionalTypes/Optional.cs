@@ -105,17 +105,15 @@ namespace OptionalTypes
 
         public Type GetBaseType()
         {
+            return typeof(T);
+        }
+
+        public Type GetUnderlyingType()
+        {
             var t = typeof(T);
 
-            // changed t.IsGenericType to t.GetTypeInfo().IsGenericType
             if (t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
             {
-                /*
-                if (value == null)
-                {
-                    return default(T);
-                }
-                */
                 t = Nullable.GetUnderlyingType(t);
             }
 
