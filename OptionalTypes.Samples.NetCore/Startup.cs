@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Converters;
 using Optionals.Samples.NetCore.repository;
+using OptionalTypes.JsonConverters;
 using Swashbuckle.Swagger.Model;
 
 namespace Optionals.Samples.NetCore
@@ -33,7 +34,7 @@ namespace Optionals.Samples.NetCore
             services.AddMvc();
 
             // Add framework services.
-            //           services.AddMvc().AddJsonOptions( o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
+           services.AddMvc().AddJsonOptions( o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
             //  services.AddMvc().AddJsonOptions(o => o.SerializerSettings.ContractResolver = new OptionalContractResolver());
 
             // services.AddJsonFormatters(o => o...);;

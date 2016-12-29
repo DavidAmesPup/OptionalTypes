@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace OptionalTypes.JsonConverters.Tests.TestDtos
 {
-    public class NullableDateTimeDto
+    public class NullableIntDto
     {
-        public Optional<DateTime?> Value { get; set; }
+        public Optional<int?> Value { get; set; }
     }
 }

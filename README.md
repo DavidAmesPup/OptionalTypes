@@ -99,7 +99,7 @@ public class ContactDto()
 
 With our mapping looking something like
 ```csharp
-entity.DateOfBirth = contactDto.DateOfBirth.IsDefiend ? contactDto.DateOfBirth.Value : entity.DateOfBirth;
+entity.DateOfBirth = contactDto.DateOfBirth.IsDefiened ? contactDto.DateOfBirth.Value : entity.DateOfBirth;
 ```
 or, more simply:
 ```csharp
@@ -109,7 +109,15 @@ In the semver world, we would call this a minor release as it's backwards compat
 
 Of course, we will still need API versioning, but this is only needed for major releases that are no longer backwards compatible.
 
-### What
+### How?
+
+#### Installation
+
+#### Equality Rules
+Two Optional<T> values are considered equal if T is of the same type AND both of their values are undefined or equal.
+
+
+### What?
 This project contains
 * The underlying Optional generic type as a NetStandard 1.0 library
 * A JsonConverter compatible with DotNet Core.
@@ -117,7 +125,4 @@ This project contains
 * A sample DotNet core application using Swagger as a front-end.
 
 
-### How
-#### Equality Rules
-Two Optional<T> values are considered equal if T is of the same type AND both of their values are undefined or equal.
 	

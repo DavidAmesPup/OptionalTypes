@@ -22,7 +22,7 @@ namespace Optionals.Samples.NetCore.Controllers
 
 
         [HttpGet]
-        [Produces(typeof(IEnumerable<Contact>))]
+        [Produces(typeof(IEnumerable<ContactDto>))]
         public IActionResult Get()
         {
             return new OkObjectResult(_contactRepository.GetAll().Select(x =>
@@ -35,12 +35,17 @@ namespace Optionals.Samples.NetCore.Controllers
         }
 
         [HttpGet("{id}")]
-        [Produces(typeof(Contact))]
+        [Produces(typeof(ContactDto))]
 
         public IActionResult Get(int id)
         {
             Contact contact = _contactRepository.Get(id);
-            return contact == null ? new NotFoundResult() as IActionResult : new OkObjectResult(contact) as IActionResult;
+            if (contact == null)
+                return new NotFoundResult();
+
+            var contactDto = new ContactDto();
+            ContactMapper.Map(contact, contactDto);
+            return new OkObjectResult(contactDto);
         }
 
         [HttpPost]
@@ -49,7 +54,11 @@ namespace Optionals.Samples.NetCore.Controllers
             if (!ModelState.IsValid)
                 return new BadRequestObjectResult(ModelState);
 
-            var contact = new Contact();
+            var contact = new Contact()
+            {
+                Id = _contactRepository.GetAll().Count() + 1
+            };
+            
             ContactMapper.Map(contactDto, contact);
             _contactRepository.Save(contact);
 

@@ -28,10 +28,13 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Write
         [Fact]
         public static void CanObeyDateFormatSettings()
         {
+            //We want to ensure that options set in the serializer are obeyed by our formatter
+
             //Arrange
             JsonSerializer jsonSerializer = new JsonSerializer();
             jsonSerializer.DateFormatString = "dd-MMM-yyyy";
-
+            
+            jsonSerializer.DateTimeZoneHandling  = DateTimeZoneHandling.Utc;
             jsonSerializer.Converters.Add(new OptionalConverter());
             StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonTextWriter(stringWriter);
@@ -47,20 +50,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Write
             //Assert
             Assert.Equal(@"{""Value"":""31-Dec-9999""}", stringWriter.ToString());
         }
-
-        /*
-         *  JsonSerializer jsonSerializer = new JsonSerializer();
-           
-            jsonSerializer.Converters.Add(new OptionalConverter());
-            StringWriter stringWriter = new StringWriter();
-            JsonWriter jsonWriter = new JsonTextWriter(stringWriter);
-
-            jsonSerializer.Serialize(jsonWriter, dto);
-
-            return stringWriter;
-
-         */
-
+        
 
         [Fact]
         public static void CanWriteUndefined()

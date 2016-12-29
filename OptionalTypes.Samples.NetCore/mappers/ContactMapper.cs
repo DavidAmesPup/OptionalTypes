@@ -12,7 +12,7 @@ namespace Optionals.Samples.NetCore.mappers
         public static void Map(ContactDto source, Contact dest)
         {
             dest.FirstName = source.FirstName.GetValueOrDefault(dest.FirstName);
-            dest.LastName = source.FirstName.GetValueOrDefault(dest.LastName);
+            dest.LastName = source.LastName.GetValueOrDefault(dest.LastName);
             dest.StreetAddress = source.StreetAddress.GetValueOrDefault(dest.StreetAddress);
             dest.DateOfBirth = source.DateOfBirth.GetValueOrDefault(dest.DateOfBirth);
             dest.CountryId = source.CountryId.GetValueOrDefault(dest.CountryId);
