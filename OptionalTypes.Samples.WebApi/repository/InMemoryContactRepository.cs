@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OptionalTypes.Samples.NetCore.domain;
+using OptionalTypes.Samples.WebApi.domain;
 
-namespace OptionalTypes.Samples.NetCore.repository
+namespace OptionalTypes.Samples.WebApi.repository
 {
     public class InMemoryContactRepository : IContactRepository
     {

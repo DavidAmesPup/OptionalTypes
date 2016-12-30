@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OptionalTypes;
-namespace Optionals.Samples.NetCore.dtos
+namespace OptionalTypes.Samples.NetCore.dtos
 {
     public class ContactDto
     {

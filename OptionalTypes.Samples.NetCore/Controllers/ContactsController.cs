@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Optionals.Samples.NetCore.domain;
-using Optionals.Samples.NetCore.dtos;
-using Optionals.Samples.NetCore.mappers;
-using Optionals.Samples.NetCore.repository;
+using OptionalTypes.Samples.NetCore.domain;
+using OptionalTypes.Samples.NetCore.dtos;
+using OptionalTypes.Samples.NetCore.mappers;
+using OptionalTypes.Samples.NetCore.repository;
 
-namespace Optionals.Samples.NetCore.Controllers
+namespace OptionalTypes.Samples.NetCore.Controllers
 {
     [Route("api/[controller]")]
     public class ContactsController : Controller

@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Converters;
-using Optionals.Samples.NetCore.repository;
 using OptionalTypes.JsonConverters;
+using OptionalTypes.Samples.NetCore.repository;
 using Swashbuckle.Swagger.Model;
 
-namespace Optionals.Samples.NetCore
+namespace OptionalTypes.Samples.NetCore
 {
     public class Startup
     {

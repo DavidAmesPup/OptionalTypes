@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Optionals.Samples.NetCore
+namespace OptionalTypes.Samples.NetCore
 {
     public class Program
     {

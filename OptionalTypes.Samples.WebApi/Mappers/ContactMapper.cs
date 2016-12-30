@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OptionalTypes.Samples.NetCore.domain;
-using OptionalTypes.Samples.NetCore.dtos;
+using OptionalTypes.Samples.WebApi.domain;
+using OptionalTypes.Samples.WebApi.dtos;
 
-namespace OptionalTypes.Samples.NetCore.mappers
+namespace OptionalTypes.Samples.WebApi.mappers
 {
     public static class ContactMapper
     {
