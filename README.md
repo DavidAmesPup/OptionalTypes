@@ -113,16 +113,33 @@ Of course, we will still need API versioning, but this is only needed for major 
 
 #### Installation
 
+##### Web API
+
+Upgrade to the latest NewtonSoft.JSON package via NuGet.
+Add the following to your Application_Start method in Global.asax.cs 
+```csharp
+	HttpConfiguration config = GlobalConfiguration.Configuration;
+	config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new OptionalConverter());
+```
+
+
+##### DotNet Core
+
+Add the following to your ConfigureServices method in Startup.cs 
+```csharp
+	services.AddMvc().AddJsonOptions( o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
+```
+
 #### Equality Rules
 Two Optional<T> values are considered equal if T is of the same type AND both of their values are undefined or equal.
 
 
 ### What?
 This project contains
-* The underlying Optional generic type as a NetStandard 1.0 library
-* A JsonConverter compatible with DotNet Core.
-* A Swashbuckle formatter to generate correct Swagger documentation.
-* A sample DotNet core application using Swagger as a front-end.
+* The underlying Optional generic type as a NetStandard 1.0 library.
+* A JsonConverter compatible with DotNet Core & Web API.
+* A sample DotNet Core application using Swagger as a front-end.
+* A sample WebAPI application using Swagger as a front-end.
 
 
 	
