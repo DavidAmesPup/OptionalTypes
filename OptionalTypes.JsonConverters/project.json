@@ -1,5 +1,12 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.1.0-beta-*",
+
+  "packOptions": {
+    "licenseUrl": "https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE",
+    "projectUrl": "https://github.com/DavidAmesPup/OptionalTypes/",
+    "owners": [ "David Ames" ],
+    "summary": "Allows backwards compatibility for your JSON based APIs by differentiating between 'Null' and 'Not Supplied'. This is the JSON Converter package."
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
@@ -8,7 +15,7 @@
   },
 
   "frameworks": {
-     "net45": {},
+    "net45": {},
     "netstandard1.6": { "imports": "dnxcore50" }
 
   }
