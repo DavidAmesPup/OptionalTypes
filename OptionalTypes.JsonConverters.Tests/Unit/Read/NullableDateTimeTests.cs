@@ -16,7 +16,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
 
             //Arrange
 
-            string json = @"{""Value"":""2014-12-21T08:00:00.000000Z""}";
+            string json = @"{""Value"":""2014-01-01T08:00:00.000000Z""}";
 
             JsonSerializer jsonSerializer = new JsonSerializer();
             jsonSerializer.DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind;
@@ -30,7 +30,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
 
             //Assert
             Assert.True(dto.Value.IsDefined);
-            Assert.Equal(DateTime.Parse("21/12/2014 8:00:00 AM"), dto.Value);
+            Assert.Equal(DateTime.Parse("01/01/2014 8:00:00 AM"), dto.Value);
         }
 
 
