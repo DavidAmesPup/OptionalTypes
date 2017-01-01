@@ -1,5 +1,5 @@
 ﻿{
-  "version": "0.1.0-beta-*",
+  "version": "1.0.0",
   "packOptions": {
     "licenseUrl": "https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE",
     "projectUrl": "https://github.com/DavidAmesPup/OptionalTypes/",

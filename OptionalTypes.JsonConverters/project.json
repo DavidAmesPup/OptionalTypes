@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-beta-*",
+  "version": "1.0.0",
 
   "packOptions": {
     "licenseUrl": "https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE",
@@ -11,7 +11,7 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.2-beta1",
-    "OptionalTypes": "0.1.0-beta*"
+    "OptionalTypes": "1.0.0"
   },
 
   "frameworks": {
