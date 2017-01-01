@@ -19,24 +19,3 @@
     }
   }
 }
-/*
-{
-  "version": "1.0.0-*",
-
-  "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "Newtonsoft.Json": "9.0.2-beta1",
-    "OptionalTypes": "1.0.0-*",
-    "OptionalTypes.JsonConverters": "1.0.0-*",
-    "xunit": "2.2.0-beta4-build3444",
-
-  },
-
-
-  "frameworks": {
-    "netstandard1.6": {
-      "imports": "dnxcore50"
-    }
-  }
-}
-*/
