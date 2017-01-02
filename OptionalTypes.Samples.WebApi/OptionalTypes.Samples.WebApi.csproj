@@ -53,12 +53,12 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OptionalTypes, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OptionalTypes.1.0.1\lib\net45\OptionalTypes.dll</HintPath>
+    <Reference Include="OptionalTypes, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OptionalTypes.1.0.3\lib\net45\OptionalTypes.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OptionalTypes.JsonConverters, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OptionalTypes.JsonConverters.1.0.1\lib\net45\OptionalTypes.JsonConverters.dll</HintPath>
+    <Reference Include="OptionalTypes.JsonConverters, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OptionalTypes.JsonConverters.1.0.3\lib\net45\OptionalTypes.JsonConverters.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
