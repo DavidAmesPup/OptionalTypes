@@ -15,11 +15,7 @@
 
   "frameworks": {
     "net45": {
-      "frameworkAssemblies": {
-        "System.Linq": "",
-        "System.Reflection": "",
-        "System.Runtime": ""
-      }
+     
 
     },
     "netstandard1.1": {
