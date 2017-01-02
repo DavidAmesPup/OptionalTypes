@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "OptionalTypes.JsonConverters",
   "description": "Allows backwards compatibility for your JSON based APIs by differentiating between 'Null' and 'Not Supplied'. This is the JsonConverters package which allows correct serialization and deserialization of OptionalTypes in Asp.Net Core and WebAPI.",
 
@@ -7,18 +7,23 @@
     "licenseUrl": "https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE",
     "projectUrl": "https://github.com/DavidAmesPup/OptionalTypes/",
     "owners": [ "David Ames" ],
-    "tags": [ "C#", "Asp.Net Core", "Api", "WebApi"] 
+    "tags": [ "C#", "Asp.Net Core", "Api", "WebApi" ]
   },
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.2-beta1",
-    "OptionalTypes": "1.0.1"
+    "OptionalTypes": "1.0.2"
   },
 
   "frameworks": {
     "net45": {},
-    "netstandard1.6": { "imports": "dnxcore50" }
+    "netstandard1.1": {
+      "dependencies": {
+        "System.Linq": "4.1.0",
+        "System.Reflection": "4.1.0",
+        "System.Runtime": "4.1.0"
+      }
+    }
 
   }
 }

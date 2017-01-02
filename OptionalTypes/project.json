@@ -1,20 +1,36 @@
 ﻿{
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "OptionalTypes",
   "description": "Allows backwards compatibility for your JSON based APIs by differentiating between 'Null' and 'Not Supplied'. This is the core Optional<T> package.",
   "packOptions": {
     "licenseUrl": "https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE",
     "projectUrl": "https://github.com/DavidAmesPup/OptionalTypes/",
     "owners": [ "David Ames" ],
-    "tags": [ "C#", "Asp.Net Core", "Api" ] 
+    "tags": [ "C#", "Asp.Net Core", "Api" ]
   },
   "dependencies": {
-    "NETStandard.Library": "1.6.0"
+
+   
   },
 
   "frameworks": {
-    "net45": {},
-    "netstandard1.6": { "imports": "dnxcore50" }
+    "net45": {
+      "frameworkAssemblies": {
+        "System.Linq": "",
+        "System.Reflection": "",
+        "System.Runtime": ""
+      }
+
+    },
+    "netstandard1.1": {
+      "dependencies": {
+        "System.Linq": "4.1.0",
+        "System.Reflection": "4.1.0",
+        "System.Runtime": "4.1.0",
+        "System.Runtime.InteropServices" : "4.1.0"
+      }
+    }
+
 
   }
 }
