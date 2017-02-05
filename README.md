@@ -80,8 +80,8 @@ The behaviour we want is that if dateOfBirth was supplied then update the value 
 
 There are several solutions to this
 * Accept JSON patch documents.
-* Use API versoning
-* Use special values to indicate intential null.
+* Use API versioning
+* Use special values to indicate intentional null.
 
 All of these solutions have drawbacks in terms of additional complexity.
 
