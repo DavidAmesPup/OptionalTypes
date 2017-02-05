@@ -99,7 +99,7 @@ public class ContactDto()
 
 With our mapping looking something like
 ```csharp
-entity.DateOfBirth = contactDto.DateOfBirth.IsDefiened ? contactDto.DateOfBirth.Value : entity.DateOfBirth;
+entity.DateOfBirth = contactDto.DateOfBirth.IsDefined ? contactDto.DateOfBirth.Value : entity.DateOfBirth;
 ```
 or, more simply:
 ```csharp
