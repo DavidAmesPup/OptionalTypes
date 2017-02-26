@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OptionalTypes.Samples.NetCore.domain;
 using OptionalTypes.Samples.NetCore.dtos;
@@ -13,7 +11,7 @@ namespace OptionalTypes.Samples.NetCore.Controllers
     [Route("api/[controller]")]
     public class ContactsController : Controller
     {
-        private IContactRepository _contactRepository;
+        private readonly IContactRepository _contactRepository;
 
         public ContactsController(IContactRepository contactRepository)
         {
@@ -36,10 +34,9 @@ namespace OptionalTypes.Samples.NetCore.Controllers
 
         [HttpGet("{id}")]
         [Produces(typeof(ContactDto))]
-
         public IActionResult Get(int id)
         {
-            Contact contact = _contactRepository.Get(id);
+            var contact = _contactRepository.Get(id);
             if (contact == null)
                 return new NotFoundResult();
 
@@ -49,16 +46,16 @@ namespace OptionalTypes.Samples.NetCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]ContactDto contactDto)
+        public IActionResult Post([FromBody] ContactDto contactDto)
         {
             if (!ModelState.IsValid)
                 return new BadRequestObjectResult(ModelState);
 
-            var contact = new Contact()
+            var contact = new Contact
             {
                 Id = _contactRepository.GetAll().Count() + 1
             };
-            
+
             ContactMapper.Map(contactDto, contact);
             _contactRepository.Save(contact);
 
@@ -66,10 +63,10 @@ namespace OptionalTypes.Samples.NetCore.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]ContactDto contactDto)
+        public IActionResult Put(int id,
+            [FromBody] ContactDto contactDto)
         {
-           
-            Contact contact = _contactRepository.Get(id);
+            var contact = _contactRepository.Get(id);
             if (contact == null)
                 return new NotFoundResult();
 
@@ -79,7 +76,5 @@ namespace OptionalTypes.Samples.NetCore.Controllers
 
             return new OkResult();
         }
-
-       
     }
 }

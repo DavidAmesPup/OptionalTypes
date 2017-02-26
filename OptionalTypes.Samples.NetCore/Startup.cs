@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Converters;
 using OptionalTypes.JsonConverters;
 using OptionalTypes.Samples.NetCore.repository;
 using Swashbuckle.Swagger.Model;
@@ -21,8 +15,8 @@ namespace OptionalTypes.Samples.NetCore
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -34,7 +28,7 @@ namespace OptionalTypes.Samples.NetCore
             services.AddMvc();
 
             // Add framework services.
-           services.AddMvc().AddJsonOptions( o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
+            services.AddMvc().AddJsonOptions(o => o.SerializerSettings.Converters.Add(new OptionalConverter()));
             //  services.AddMvc().AddJsonOptions(o => o.SerializerSettings.ContractResolver = new OptionalContractResolver());
 
             // services.AddJsonFormatters(o => o...);;
@@ -55,23 +49,21 @@ namespace OptionalTypes.Samples.NetCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseCors(builder => builder.AllowAnyOrigin()
-           .AllowAnyHeader()
-           .AllowAnyMethod());
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseMvc();
 
             app.UseSwagger();
             app.UseSwaggerUi();
-
-            
         }
-
-
     }
 }

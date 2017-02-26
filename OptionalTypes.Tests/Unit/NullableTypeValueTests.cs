@@ -1,15 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OptionalTypes;
-
 using Xunit;
 
 namespace OptionalTypes.Tests.Unit
 {
     public static class NullableValueTests
     {
+        [Fact]
+        public static void CanEqualHaveSignValueEquality()
+        {
+            //Arrange
+            var subject1 = new Optional<int?>(1);
+            var subject2 = new Optional<int?>(1);
+
+            //Act & Assert
+            Assert.True(subject1 == subject2);
+        }
+
+
+        [Fact]
+        public static void CanEqualHaveValueEquality()
+        {
+            //Arrange
+            var subject1 = new Optional<int?>(1);
+            var subject2 = new Optional<int?>(1);
+
+            //Act & Assert
+            Assert.Equal(subject1, subject2);
+        }
+
         [Fact]
         public static void CanInitaliseToNoDefinedValue()
         {
@@ -19,27 +37,35 @@ namespace OptionalTypes.Tests.Unit
             Assert.False(subject.IsDefined);
         }
 
-
         [Fact]
-        public static void CanSettingValueSetDefined()
+        public static void CanNotEqualHaveSignValueInequality()
         {
             //Arrange
-            var subject = new Optional<int?>();
+            var subject1 = new Optional<int?>(1);
+            var subject2 = new Optional<int?>(1);
 
-            //Act
-            subject = 1;
-           
-            //Assert
-            Assert.True(subject.IsDefined);
-            Assert.Equal(1, subject.Value);
+            //Act & Assert
+            Assert.False(subject1 != subject2);
+        }
+
+        [Fact]
+        public static void CanNotEqualHaveValueInequality()
+        {
+            //Arrange
+            var subject1 = new Optional<int?>(1);
+            var subject2 = new Optional<int?>(2);
+
+            //Act & Assert
+            Assert.NotEqual(subject1, subject2);
         }
 
         [Fact]
         public static void CanSettingNullSetDefined()
         {
             //Arrange
+            // ReSharper disable once RedundantAssignment
             var subject = new Optional<int?>();
-      
+
             //Act
             subject = null;
 
@@ -54,6 +80,22 @@ namespace OptionalTypes.Tests.Unit
             //Act
             Optional<int> subject = 1;
 
+            Assert.True(subject.IsDefined);
+            Assert.Equal(1, subject.Value);
+        }
+
+
+        [Fact]
+        public static void CanSettingValueSetDefined()
+        {
+            //Arrange
+            // ReSharper disable once RedundantAssignment
+            var subject = new Optional<int?>();
+
+            //Act
+            subject = 1;
+
+            //Assert
             Assert.True(subject.IsDefined);
             Assert.Equal(1, subject.Value);
         }
@@ -82,53 +124,6 @@ namespace OptionalTypes.Tests.Unit
 
             //Assert
             Assert.False(subject1.Equals(subject2));
-        }
-
-
-
-        [Fact]
-        public static void CanEqualHaveValueEquality()
-        {
-            //Arrange
-            var subject1 = new Optional<int?>(1);
-            var subject2 = new Optional<int?>(1);
-
-            //Act & Assert
-            Assert.Equal(subject1, subject2);
-        }
-
-        [Fact]
-        public static void CanNotEqualHaveValueInequality()
-        {
-            //Arrange
-            var subject1 = new Optional<int?>(1);
-            var subject2 = new Optional<int?>(2);
-
-            //Act & Assert
-            Assert.NotEqual(subject1, subject2);
-        }
-
-
-        [Fact]
-        public static void CanEqualHaveSignValueEquality()
-        {
-            //Arrange
-            var subject1 = new Optional<int?>(1);
-            var subject2 = new Optional<int?>(1);
-
-            //Act & Assert
-            Assert.True(subject1 == subject2);
-        }
-
-        [Fact]
-        public static void CanNotEqualHaveSignValueInequality()
-        {
-            //Arrange
-            var subject1 = new Optional<int?>(1);
-            var subject2 = new Optional<int?>(1);
-
-            //Act & Assert
-            Assert.False(subject1 != subject2);
         }
     }
 }

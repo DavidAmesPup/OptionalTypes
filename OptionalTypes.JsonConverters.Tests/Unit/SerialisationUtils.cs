@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Newtonsoft.Json;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit
 {
     public static class SerialisationUtils
     {
-        public  static StringWriter SerializeDto(object dto)
+        public static StringWriter SerializeDto(object dto)
         {
-            JsonSerializer jsonSerializer = new JsonSerializer();
-           
+            var jsonSerializer = new JsonSerializer();
+
             jsonSerializer.Converters.Add(new OptionalConverter());
-            StringWriter stringWriter = new StringWriter();
+            var stringWriter = new StringWriter();
             JsonWriter jsonWriter = new JsonTextWriter(stringWriter);
 
             jsonSerializer.Serialize(jsonWriter, dto);
 
             return stringWriter;
-
         }
 
         public static T Deserialize<T>(string json)
         {
-            JsonSerializer jsonSerializer = new JsonSerializer();
+            var jsonSerializer = new JsonSerializer();
             jsonSerializer.Converters.Add(new OptionalConverter());
-            StringReader stringReader = new StringReader(json);
+            var stringReader = new StringReader(json);
             JsonReader jsonReader = new JsonTextReader(stringReader);
 
 
-           return jsonSerializer.Deserialize<T>(jsonReader);
-
+            return jsonSerializer.Deserialize<T>(jsonReader);
         }
     }
 }

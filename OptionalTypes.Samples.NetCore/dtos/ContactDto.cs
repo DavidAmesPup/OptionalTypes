@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OptionalTypes;
+
 namespace OptionalTypes.Samples.NetCore.dtos
 {
     public class ContactDto
@@ -12,7 +9,5 @@ namespace OptionalTypes.Samples.NetCore.dtos
         public Optional<string> StreetAddress { get; set; }
         public Optional<long?> CountryId { get; set; }
         public Optional<DateTime?> DateOfBirth { get; set; }
-
-
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OptionalTypes.Samples.WebApi.domain;
+﻿using OptionalTypes.Samples.WebApi.domain;
 using OptionalTypes.Samples.WebApi.dtos;
 
 namespace OptionalTypes.Samples.WebApi.mappers
 {
     public static class ContactMapper
     {
-        public static void Map(ContactDto source, Contact dest)
+        public static void Map(ContactDto source,
+            Contact dest)
         {
             dest.FirstName = source.FirstName.GetValueOrDefault(dest.FirstName);
             dest.LastName = source.LastName.GetValueOrDefault(dest.LastName);

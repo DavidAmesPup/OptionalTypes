@@ -40,6 +40,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             //Arrange
             string json = @"{""Value"":"" This is not a datetime ""}";
 
+            // ReSharper disable once NotAccessedVariable
             NullableDateTimeDto dto;
             //Act
             InvalidCastException ex = Assert.Throws<InvalidCastException>(() =>

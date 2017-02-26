@@ -1,24 +1,22 @@
-﻿using System.IO;
-using OptionalTypes.JsonConverters.Tests.TestDtos;
+﻿using OptionalTypes.JsonConverters.Tests.TestDtos;
 using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Read
 {
     public static class StringTests
     {
-
         [Fact]
-        public static void CanReadValue()
+        public static void CanReadMissingValue()
         {
             //Arrange
-            string json = @"{""Value"":""The Value""}";
-            
+            var json = @"{""NotFoundValue"":undefined}";
+
             //Act
-            StringDto dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<StringDto>(json);
 
             //Assert
-            Assert.True(dto.Value.IsDefined);
-            Assert.Equal("The Value", dto.Value);
+            Assert.False(dto.Value.IsDefined);
+            Assert.Null(dto.Value.Value);
         }
 
 
@@ -26,10 +24,10 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
         public static void CanReadNullValue()
         {
             //Arrange
-            string json = @"{""Value"":null}";
+            var json = @"{""Value"":null}";
 
             //Act
-            StringDto dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<StringDto>(json);
 
             //Assert
             Assert.True(dto.Value.IsDefined);
@@ -41,10 +39,10 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
         public static void CanReadUndefinedValue()
         {
             //Arrange
-            string json = @"{""Value"":undefined}";
+            var json = @"{""Value"":undefined}";
 
             //Act
-            StringDto dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<StringDto>(json);
 
             //Assert
             Assert.False(dto.Value.IsDefined);
@@ -52,18 +50,17 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
         }
 
         [Fact]
-        public static void CanReadMissingValue()
+        public static void CanReadValue()
         {
             //Arrange
-            string json = @"{""NotFoundValue"":undefined}";
+            var json = @"{""Value"":""The Value""}";
 
             //Act
-            StringDto dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<StringDto>(json);
 
             //Assert
-            Assert.False(dto.Value.IsDefined);
-            Assert.Null(dto.Value.Value);
+            Assert.True(dto.Value.IsDefined);
+            Assert.Equal("The Value", dto.Value);
         }
-
     }
 }

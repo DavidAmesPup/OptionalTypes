@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 using OptionalTypes.JsonConverters;
 
 namespace OptionalTypes.Samples.WebApi
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -19,9 +15,9 @@ namespace OptionalTypes.Samples.WebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            HttpConfiguration config = GlobalConfiguration.Configuration;
+            var config = GlobalConfiguration.Configuration;
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new OptionalConverter());
-            
+
             // AreaRegistration.RegisterAllAreas();
             // WebApiConfig.Register(GlobalConfiguration.Configuration);
             // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -30,7 +26,6 @@ namespace OptionalTypes.Samples.WebApi
             // GlobalConfiguration.Configure(WebApiConfig.Register);
             //  FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             //  RouteConfig.RegisterRoutes(RouteTable.Routes);
-
         }
     }
 }

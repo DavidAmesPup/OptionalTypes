@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OptionalTypes.Samples.WebApi.domain;
 
 namespace OptionalTypes.Samples.WebApi.repository
@@ -11,6 +8,5 @@ namespace OptionalTypes.Samples.WebApi.repository
         IEnumerable<Contact> GetAll();
         Contact Get(int id);
         void Save(Contact contact);
-
     }
 }

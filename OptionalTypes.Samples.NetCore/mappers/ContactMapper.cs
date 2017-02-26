@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OptionalTypes.Samples.NetCore.domain;
+﻿using OptionalTypes.Samples.NetCore.domain;
 using OptionalTypes.Samples.NetCore.dtos;
 
 namespace OptionalTypes.Samples.NetCore.mappers
 {
     public static class ContactMapper
     {
-        public static void Map(ContactDto source, Contact dest)
+        public static void Map(ContactDto source,
+            Contact dest)
         {
             dest.FirstName = source.FirstName.GetValueOrDefault(dest.FirstName);
             dest.LastName = source.LastName.GetValueOrDefault(dest.LastName);

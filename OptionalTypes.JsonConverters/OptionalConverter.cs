@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace OptionalTypes.JsonConverters
 {
@@ -24,9 +23,8 @@ namespace OptionalTypes.JsonConverters
                 writer.WriteUndefined();
                 return;
             }
-            
+
             writer.WriteValue(optional.Value);
-           
         }
 
         public override object ReadJson(JsonReader reader,
@@ -34,31 +32,29 @@ namespace OptionalTypes.JsonConverters
             object existingValue,
             JsonSerializer serializer)
         {
-
             var existingOptional = existingValue as IOptional;
-            
+
             // Return null, because the Optional is a struct, it will be created as a non-null
             // string with isDefined set to false.
-            if (reader.TokenType== JsonToken.Undefined)
+            if (reader.TokenType == JsonToken.Undefined)
                 return null;
 
 
-            object value = reader.Value;
+            if (existingOptional == null)
+                return null;
 
-            Type underlyingType = existingOptional.GetUnderlyingType();
+            var value = reader.Value;
+
+            var underlyingType = existingOptional.GetUnderlyingType();
 
             if (value == null)
             {
-               Type baseType = existingOptional.GetBaseType();
+                var baseType = existingOptional.GetBaseType();
                 if (baseType.GetTypeInfo().IsValueType)
-                {
                     if (!(baseType.GetTypeInfo().IsGenericType && baseType.GetGenericTypeDefinition().Equals(typeof(Nullable<>))))
                         throw new InvalidCastException($"Cannot convert null to a {existingOptional.GetBaseType()} because it does not allow null values.");
-
-                }
-
             }
-             
+
             if (value != null && value.GetType() != underlyingType)
                 try
                 {
@@ -68,9 +64,8 @@ namespace OptionalTypes.JsonConverters
                 {
                     throw new InvalidCastException($"Cannot convert {reader.Value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
                 }
-             
+
             return Activator.CreateInstance(objectType, value);
-            
         }
 
         public override bool CanConvert(Type objectType)
