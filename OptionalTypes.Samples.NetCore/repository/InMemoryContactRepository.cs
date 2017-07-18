@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using OptionalTypes.Samples.NetCore.domain;
+using OptionalTypes.Samples.NetCore.Domain;
+using OptionalTypes.Samples.NetCore.Repository;
 
 namespace OptionalTypes.Samples.NetCore.repository
 {

@@ -1,5 +1,5 @@
-﻿using OptionalTypes.Samples.NetCore.domain;
-using OptionalTypes.Samples.NetCore.dtos;
+﻿using OptionalTypes.Samples.NetCore.dtos;
+using OptionalTypes.Samples.NetCore.Domain;
 
 namespace OptionalTypes.Samples.NetCore.mappers
 {

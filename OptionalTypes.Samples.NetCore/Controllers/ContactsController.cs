@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using OptionalTypes.Samples.NetCore.domain;
 using OptionalTypes.Samples.NetCore.dtos;
+using OptionalTypes.Samples.NetCore.Domain;
 using OptionalTypes.Samples.NetCore.mappers;
-using OptionalTypes.Samples.NetCore.repository;
+using OptionalTypes.Samples.NetCore.Repository;
 
 namespace OptionalTypes.Samples.NetCore.Controllers
 {

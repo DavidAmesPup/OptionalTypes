@@ -1,26 +1,11 @@
-﻿using OptionalTypes.JsonConverters.Tests.TestDtos;
+﻿using System;
+using OptionalTypes.JsonConverters.Tests.TestDtos;
 using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Read
 {
-    public static class StringTests
+    public static class NullableIntTests
     {
-
-        [Fact]
-        public static void CanReadApplicationReceived()
-        {
-            //Arrange
-            var json = @"{""SubscriptionUri"": ""www.google.com"",""Criteria"" :{""departmentId"": 2}}";
-
-            //Act
-            var dto = SerialisationUtils.Deserialize<ApplicationReceivedSubscription>(json);
-
-            //Assert
-            Assert.NotNull(dto.Criteria);
-           
-        }
-
-
         [Fact]
         public static void CanReadMissingValue()
         {
@@ -28,7 +13,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             var json = @"{""NotFoundValue"":undefined}";
 
             //Act
-            var dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
 
             //Assert
             Assert.False(dto.Value.IsDefined);
@@ -43,7 +28,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             var json = @"{""Value"":null}";
 
             //Act
-            var dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
 
             //Assert
             Assert.True(dto.Value.IsDefined);
@@ -58,7 +43,7 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             var json = @"{""Value"":undefined}";
 
             //Act
-            var dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
 
             //Assert
             Assert.False(dto.Value.IsDefined);
@@ -69,14 +54,31 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
         public static void CanReadValue()
         {
             //Arrange
-            var json = @"{""Value"":""The Value""}";
+            var json = @"{""Value"":42}";
 
             //Act
-            var dto = SerialisationUtils.Deserialize<StringDto>(json);
+            var dto = SerialisationUtils.Deserialize<NullableIntDto>(json);
 
             //Assert
             Assert.True(dto.Value.IsDefined);
-            Assert.Equal("The Value", dto.Value);
+            Assert.Equal(42, dto.Value);
+        }
+
+
+        [Fact]
+        public static void CanThrowInformativeExceptionWithIncorrectValue()
+        {
+            //Arrange
+            var json = @"{""Value"":"" This is not an int ""}";
+
+            NullableIntDto dto;
+            //Act
+            var ex = Assert.Throws<InvalidCastException>(() => { dto = SerialisationUtils.Deserialize<NullableIntDto>(json); }
+            );
+
+            //Assert
+
+            Assert.Equal("Cannot convert  This is not an int  to a System.Nullable`1[System.Int32] because of Input string was not in a correct format.", ex.Message);
         }
     }
 }

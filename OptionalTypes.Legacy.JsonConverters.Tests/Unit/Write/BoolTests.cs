@@ -3,29 +3,13 @@ using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Write
 {
-    public static class NullableIntTests
+    public static class BoolTests
     {
-        [Fact]
-        public static void CanWriteNullValue()
-        {
-            //Arrange
-            var dto = new NullableIntDto
-            {
-                Value = null
-            };
-
-            //Act
-            var sw = SerialisationUtils.SerializeDto(dto);
-
-            //Assert
-            Assert.Equal(@"{""Value"":null}", sw.ToString());
-        }
-
         [Fact]
         public static void CanWriteUndefined()
         {
             //Arrange
-            var dto = new NullableIntDto();
+            var dto = new BoolDto();
 
             //Act
             var sw = SerialisationUtils.SerializeDto(dto);
@@ -38,16 +22,16 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Write
         public static void CanWriteValue()
         {
             //Arrange
-            var dto = new NullableIntDto
+            var dto = new BoolDto
             {
-                Value = 5
+                Value = true
             };
 
             //Act
             var sw = SerialisationUtils.SerializeDto(dto);
 
             //Assert
-            Assert.Equal(@"{""Value"":5}", sw.ToString());
+            Assert.Equal(@"{""Value"":true}", sw.ToString());
         }
     }
 }
