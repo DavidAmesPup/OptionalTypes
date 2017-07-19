@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OptionalTypes.JsonConverters;
 using OptionalTypes.Samples.NetCore.repository;
+using OptionalTypes.Samples.NetCore.Repository;
 using Swashbuckle.Swagger.Model;
 
 namespace OptionalTypes.Samples.NetCore

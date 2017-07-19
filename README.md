@@ -141,5 +141,6 @@ This project contains
 * A sample DotNet Core application using Swagger as a front-end.
 * A sample WebAPI application using Swagger as a front-end.
 
+# Legacy
+OptionalTypes.Legacy is a NET461 package which uses NewtonSoft.Json 6.3 to make it compatable with older code bases.
 
-	

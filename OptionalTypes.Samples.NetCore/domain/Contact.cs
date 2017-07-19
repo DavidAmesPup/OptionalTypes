@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OptionalTypes.Samples.NetCore.domain
+namespace OptionalTypes.Samples.NetCore.Domain
 {
     /// <summary>
     ///     Sample domain object. Of course, in a real application, this would live in a different project.
