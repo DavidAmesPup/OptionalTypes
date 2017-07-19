@@ -58,16 +58,52 @@ namespace OptionalTypes
 
         public override bool Equals(object other)
         {
-            if (other == null) return false;
-            if (!(other is Optional<T>)) return false;
+            if (IsDifferentTypeOfOptional(other)) return false;
 
+            if (other is Optional<T>)
+            {
+                var typedOther = (Optional<T>)other; 
+                if (!IsDefined && !typedOther.IsDefined)
+                    return true;
 
-            var typedOther = (Optional<T>) other;
+                if (!IsDefined || !typedOther.IsDefined)
+                    return false;
 
-            if (!IsDefined && !typedOther.IsDefined)
+                if (ReferenceEquals(value, null))
+                {
+                    return ReferenceEquals(typedOther.Value, null);
+                }
+
+                return value.Equals(((Optional<T>)other).Value);
+            }
+
+            if (!IsDefined)
                 return true;
 
-            return value.Equals(((Optional<T>) other).Value);
+            if (ReferenceEquals(value, null))
+            {
+                return ReferenceEquals(other, null);
+            }
+            
+
+            return value.Equals(other);
+        }
+
+        private static bool IsDifferentTypeOfOptional(object other)
+        {
+            if (!(other is Optional<T>))
+            {
+                if (!ReferenceEquals(other, null))
+                {
+                    var otherType = other.GetType();
+
+                    if (otherType.GetTypeInfo().IsGenericType && otherType.GetGenericTypeDefinition() == typeof(Optional<>))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public void Match(Action<T> onMatched,

@@ -110,5 +110,75 @@ namespace OptionalTypes.Tests.Unit
             // ReSharper disable once SuspiciousTypeConversion.Global
             Assert.False(subject1.Equals(subject2));
         }
+
+
+        [Fact]
+        public static void CanCompareNullStrings()
+        {
+            //Arrange
+            var subject1 = new Optional<string>();
+            subject1 = null;
+
+            
+            //Act
+            Assert.True(subject1 == null);
+        }
+
+       
+
+        [Fact]
+        public static void CanEqualsMethodCompareNullStrings()
+        {
+            //Arrange
+            var subject1 = new Optional<string>();
+            subject1 = null;
+
+
+            //Act
+            Assert.True(subject1.Equals(null));
+        }
+
+        [Fact]
+        public static void CanEqualsMethodCompareOptionalToNonOptional()
+        {
+            //Arrange
+            var subject1 = new Optional<string>();
+            subject1 = "Bob";
+            
+            //Act
+            Assert.True(subject1.Equals("Bob"));
+        }
+
+
+
+        [Fact]
+        public static void CanEqualityMethodCompareOptionalToNonOptional()
+        {
+            //Arrange
+            var subject1 = new Optional<string>();
+            subject1 = "Bob";
+
+            //Act
+            Assert.True(subject1 == "Bob");
+        }
+
+
+
+
+
+        [Fact]
+        public static void CanCompareNullInt()
+        {
+            
+            //Arrange
+            var subject1 = new Optional<int?>();
+            subject1 = null;
+
+
+            //Act
+            Assert.True(subject1 == null);
+        }
+
+
     }
 }
