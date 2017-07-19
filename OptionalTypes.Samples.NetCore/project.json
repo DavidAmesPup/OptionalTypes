@@ -16,9 +16,9 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
-    "OptionalTypes": "1.0.4",
+    "OptionalTypes": "1.0.6",
     "Swashbuckle": "6.0.0-beta902",
-    "OptionalTypes.JsonConverters": "1.0.4"
+    "OptionalTypes.JsonConverters": "1.0.6"
   },
 
   "tools": {
