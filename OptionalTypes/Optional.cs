@@ -74,7 +74,7 @@ namespace OptionalTypes
                     return ReferenceEquals(typedOther.Value, null);
                 }
 
-                return value.Equals(((Optional<T>)other).Value);
+                return value.Equals(typedOther.Value);
             }
 
             if (!IsDefined)

@@ -6,7 +6,7 @@ namespace OptionalTypes.Tests.Unit
     public static class ClassValueTests
     {
         [Fact]
-        public static void CanEqualHaveSignValueEquality()
+        public static void VariousEquality_GivenEqualOptionals_ShouldBeEqual()
         {
             //Arrange
             var subject1 = new Optional<string>("Test");
@@ -14,53 +14,101 @@ namespace OptionalTypes.Tests.Unit
 
             //Act & Assert
             Assert.True(subject1 == subject2);
+            Assert.False(subject1 != subject2);
+            Assert.Equal(subject1,subject2);
+            Assert.True(subject1.Equals(subject2));
         }
 
 
         [Fact]
-        public static void CanEqualHaveValueEquality()
+        public static void VariousEquality_GivenEqualOptionalAndUnderlyingString_ShouldBeEqual()
         {
             //Arrange
             var subject1 = new Optional<string>("Test");
-            var subject2 = new Optional<string>("Test");
+            var subject2 = "Test";
 
             //Act & Assert
+            Assert.True(subject1 == subject2);
+            Assert.False(subject1 != subject2);
             Assert.Equal(subject1, subject2);
+            Assert.True(subject1.Equals(subject2));
         }
 
+
         [Fact]
-        public static void CanInitaliseToNoDefinedValue()
+        public static void VariousEquality_GivenEqualUnderlyingStringAndOptional_ShouldBeEqual()
+        {
+            //Arrange
+            var subject1 = "Test";
+            var subject2 = new Optional<string>("Test");
+      
+            //Act & Assert
+            Assert.False(subject1 != subject2);
+            Assert.True(subject1 == subject2);
+            Assert.Equal(subject1, subject2);
+        //    Assert.True(subject1.Equals(subject2)); TODO: fix.  
+        }
+        
+
+        [Fact]
+        public static void VariousInequality_GivenNotEqualOptionals_ShouldBeNotEqual()
+        {
+            //Arrange
+            var subject1 = new Optional<string>("Test");
+            var subject2 = new Optional<string>("NotTest");
+
+            //Act & Assert
+            Assert.False(subject1 == subject2);
+            Assert.True(subject1 != subject2);
+            Assert.NotEqual(subject1, subject2);
+            Assert.False(subject1.Equals(subject2));
+        }
+
+
+        [Fact]
+        public static void VariousInequality_GivenNotEqualOptionalAndUnderlyingString_ShouldBeNotEqual()
+        {
+            //Arrange
+            var subject1 = new Optional<string>("NotTest");
+            var subject2 = "Test";
+
+            //Act & Assert
+            Assert.False(subject1 == subject2);
+            Assert.True(subject1 != subject2);
+            Assert.NotEqual(subject1, subject2);
+            Assert.False(subject1.Equals(subject2));
+        }
+
+
+        [Fact]
+        public static void VariousInequality_GivenNotEqualUnderlyingStringAndOptional_ShouldBeNotEqual()
+        {
+            //Arrange
+            var subject1 = "Test";
+            var subject2 = new Optional<string>("NotTest");
+
+            //Act & Assert
+            Assert.False(subject1 == subject2);
+            Assert.True(subject1 != subject2);
+            Assert.NotEqual(subject1, subject2);
+            //    Assert.True(subject1.Equals(subject2)); TODO: fix.  
+        }
+        
+
+
+        [Fact]
+        public static void Ctor_GivenNoArguments_ShouldBeUndefined()
         {
             //Act
             var subject = new Optional<string>();
 
+            //Assert
             Assert.False(subject.IsDefined);
         }
 
+        
         [Fact]
-        public static void CanNotEqualHaveSignValueInequality()
-        {
-            //Arrange
-            var subject1 = new Optional<string>("Test");
-            var subject2 = new Optional<string>("Test");
-
-            //Act & Assert
-            Assert.False(subject1 != subject2);
-        }
-
-        [Fact]
-        public static void CanNotEqualHaveValueInequality()
-        {
-            //Arrange
-            var subject1 = new Optional<string>("Test");
-            var subject2 = new Optional<string>("Test_1");
-
-            //Act & Assert
-            Assert.NotEqual(subject1, subject2);
-        }
-
-        [Fact]
-        public static void CanSettingValueInlineSetDefined()
+        public static void ImplicitOperatorOnCreation_SettingValue_ShouldDefineValue()
         {
             //Act
             Optional<string> subject = "Test";
@@ -71,7 +119,7 @@ namespace OptionalTypes.Tests.Unit
 
 
         [Fact]
-        public static void CanSettingValueSetDefined()
+        public static void ImplicitOperator_SettingValue_ShouldDefineValue()
         {
             //Arrange
             var subject = new Optional<string>();
@@ -82,103 +130,50 @@ namespace OptionalTypes.Tests.Unit
             //Assert
             Assert.True(subject.IsDefined);
             Assert.Equal("Test", subject.Value);
-        }
 
+        }
+        
         [Fact]
-        public static void CanTwoUndefinedValuesBeEqual()
+        public static void VariousEquality_GivenUndefinedOptionals_ShouldBeEqual()
         {
             //Arrange
             var subject1 = new Optional<string>();
-
-            //Act
             var subject2 = new Optional<string>();
 
-            //Assert
+            //Act & Assert
+            Assert.True(subject1 == subject2);
+            Assert.False(subject1 != subject2);
             Assert.Equal(subject1, subject2);
+            Assert.True(subject1.Equals(subject2));
         }
 
+        
+
         [Fact]
-        public static void CanTwoUndefinedValuesOfDifferentTypesNotBeEqual()
+        public static void VariousEquality_GivenUndefinedOptionalsOfDiffernetTypes_ShouldNotBeEqual()
         {
             //Arrange
             var subject1 = new Optional<string>();
-
-            //Act
             var subject2 = new Optional<DateTime>();
 
-            //Assert
-            // ReSharper disable once SuspiciousTypeConversion.Global
+            //Act & Assert 
             Assert.False(subject1.Equals(subject2));
+            Assert.False(subject2.Equals(subject1));
         }
-
+        
 
         [Fact]
-        public static void CanCompareNullStrings()
+        public static void VariousEquality_GivenNullOptional_ShouldBeEqualToNull()
         {
             //Arrange
-            var subject1 = new Optional<string>();
-            subject1 = null;
-
-            
-            //Act
+            var subject1 = new Optional<string>(null);
+           
+            //Act & Assert
             Assert.True(subject1 == null);
-        }
-
-       
-
-        [Fact]
-        public static void CanEqualsMethodCompareNullStrings()
-        {
-            //Arrange
-            var subject1 = new Optional<string>();
-            subject1 = null;
-
-
-            //Act
+            Assert.False(subject1 != null);
+            Assert.Equal(subject1, null);
             Assert.True(subject1.Equals(null));
         }
-
-        [Fact]
-        public static void CanEqualsMethodCompareOptionalToNonOptional()
-        {
-            //Arrange
-            var subject1 = new Optional<string>();
-            subject1 = "Bob";
-            
-            //Act
-            Assert.True(subject1.Equals("Bob"));
-        }
-
-
-
-        [Fact]
-        public static void CanEqualityMethodCompareOptionalToNonOptional()
-        {
-            //Arrange
-            var subject1 = new Optional<string>();
-            subject1 = "Bob";
-
-            //Act
-            Assert.True(subject1 == "Bob");
-        }
-
-
-
-
-
-        [Fact]
-        public static void CanCompareNullInt()
-        {
-            
-            //Arrange
-            var subject1 = new Optional<int?>();
-            subject1 = null;
-
-
-            //Act
-            Assert.True(subject1 == null);
-        }
-
-
+        
     }
 }
