@@ -7,18 +7,78 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
     {
 
         [Fact]
-        public static void CanReadApplicationReceived()
+        public static void CanReadNonOptionalApplicationReceived()
         {
             //Arrange
             var json = @"{""SubscriptionUri"": ""www.google.com"",""Criteria"" :{""departmentId"": 2}}";
+
+            //Act
+            var dto = SerialisationUtils.Deserialize<NonOptionalApplicationReceivedSubscription>(json);
+
+            //Assert
+        
+            Assert.NotNull(dto.Criteria);
+            Assert.Equal("www.google.com", dto.SubscriptionUri);
+            Assert.Equal(2, dto.Criteria.DepartmentId);
+
+        }
+
+
+
+        [Fact]
+        public static void CanReadApplicationReceivedOne()
+        {
+            //Arrange
+            var json = @"{""SomeString"": ""www.google.com"", ""SubscriptionUri"": ""www.google.com"",""Criteria"" :{""departmentId"": 2}}";
 
             //Act
             var dto = SerialisationUtils.Deserialize<ApplicationReceivedSubscription>(json);
 
             //Assert
             Assert.NotNull(dto.Criteria);
-           
+            Assert.Equal("www.google.com", dto.SubscriptionUri);
+            Assert.Equal(2, dto.Criteria.Value.DepartmentId);
+
         }
+
+
+
+
+        [Fact]
+        public static void CanReadApplicationReceivedTwo()
+        {
+            //Arrange
+            var json = @"{ ""SubscriptionUri"": ""www.google.com"",""Criteria"" :{""departmentId"": 2}}";
+
+            //Act
+            var dto = SerialisationUtils.Deserialize<ApplicationReceivedSubscription>(json);
+
+            //Assert
+            Assert.NotNull(dto.Criteria);
+            Assert.Equal("www.google.com", dto.SubscriptionUri);
+            Assert.Equal(2, dto.Criteria.Value.DepartmentId);
+
+        }
+
+
+
+        [Fact]
+        public static void CanReadApplicationReceivedThree()
+        {
+            //Arrange
+            var json = @"{ ""SubscriptionUri"": ""www.google.com"",""Criteria"" :{}}";
+
+            //Act
+            var dto = SerialisationUtils.Deserialize<ApplicationReceivedSubscription>(json);
+
+            //Assert
+            Assert.NotNull(dto.Criteria);
+            Assert.True(dto.Criteria.IsDefined);
+            
+            Assert.False(dto.Criteria.Value.DepartmentId.IsDefined);
+
+        }
+
 
 
         [Fact]

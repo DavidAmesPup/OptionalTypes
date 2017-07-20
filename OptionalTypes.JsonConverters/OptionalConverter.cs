@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace OptionalTypes.JsonConverters
 {
@@ -32,6 +34,7 @@ namespace OptionalTypes.JsonConverters
             object existingValue,
             JsonSerializer serializer)
         {
+         
             var existingOptional = existingValue as IOptional;
 
             // Return null, because the Optional is a struct, it will be created as a non-null
@@ -65,7 +68,18 @@ namespace OptionalTypes.JsonConverters
                     throw new InvalidCastException($"Cannot convert {reader.Value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
                 }
 
-            return Activator.CreateInstance(objectType, value);
+            //if something
+            value = Activator.CreateInstance(underlyingType);
+            var optionalObject = (IOptional)Activator.CreateInstance(objectType, value);
+            //  if (reader.Curr = Start)
+            //  {
+          
+            var jObject = JObject.Load(reader);
+              serializer.Populate(jObject.CreateReader(), optionalObject.Value );
+            //}
+
+            
+            return optionalObject;
         }
 
         public override bool CanConvert(Type objectType)
