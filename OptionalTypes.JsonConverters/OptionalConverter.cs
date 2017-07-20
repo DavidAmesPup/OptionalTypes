@@ -68,24 +68,26 @@ namespace OptionalTypes.JsonConverters
                     throw new InvalidCastException($"Cannot convert {reader.Value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
                 }
 
-            //if something
-            value = Activator.CreateInstance(underlyingType);
-            var optionalObject = (IOptional)Activator.CreateInstance(objectType, value);
-            //  if (reader.Curr = Start)
-            //  {
-          
-            var jObject = JObject.Load(reader);
-              serializer.Populate(jObject.CreateReader(), optionalObject.Value );
-            //}
-
+         
+            try
+            {
+                var jObject = JObject.Load(reader);
+                value = Activator.CreateInstance(underlyingType);
+                serializer.Populate(jObject.CreateReader(), value);
+                return Activator.CreateInstance(objectType, value);
+               }
+            catch (Exception e)
+            {
+                return Activator.CreateInstance(objectType, value);
+            }
+           
             
-            return optionalObject;
         }
 
         public override bool CanConvert(Type objectType)
         {
             //TODO: find a better way
-            return objectType.Name == typeof(Optional<>).Name;
+            return objectType == typeof(Optional<>);
         }
     }
 }
