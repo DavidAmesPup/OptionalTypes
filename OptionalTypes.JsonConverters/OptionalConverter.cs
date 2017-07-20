@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -30,26 +29,45 @@ namespace OptionalTypes.JsonConverters
         }
 
         public override object ReadJson(JsonReader reader,
-            Type objectType,
+            Type targetOptionalType,
             object existingValue,
             JsonSerializer serializer)
         {
-         
             var existingOptional = existingValue as IOptional;
-
-            // Return null, because the Optional is a struct, it will be created as a non-null
-            // string with isDefined set to false.
-            if (reader.TokenType == JsonToken.Undefined)
-                return null;
-
 
             if (existingOptional == null)
                 return null;
 
-            var value = reader.Value;
-
+           
+         
             var underlyingType = existingOptional.GetUnderlyingType();
 
+            switch (reader.TokenType)
+            {
+                case JsonToken.Undefined:
+                    // Return null. because the Optional is a struct, it will be created as a non-null instance with isDefined set to false and default value depending on its underlying type.
+                    return null;
+                case JsonToken.StartObject:
+                    return GetNestedObjectValue(reader, targetOptionalType, serializer, underlyingType);
+
+                case JsonToken.StartArray:
+                    var jArray = JArray.Load(reader);
+                    var value = Activator.CreateInstance(underlyingType);
+                    serializer.Populate(jArray.CreateReader(), value);
+                    return Activator.CreateInstance(targetOptionalType, value);
+                  
+
+                default:
+                    return GetSimpleValue(reader, targetOptionalType, existingOptional, underlyingType);
+            }
+        }
+
+        private static object GetSimpleValue(JsonReader reader,
+            Type targetOptionalType,
+            IOptional existingOptional,
+            Type targetUnderlyingType)
+        {
+            var value = reader.Value;
             if (value == null)
             {
                 var baseType = existingOptional.GetBaseType();
@@ -58,36 +76,50 @@ namespace OptionalTypes.JsonConverters
                         throw new InvalidCastException($"Cannot convert null to a {existingOptional.GetBaseType()} because it does not allow null values.");
             }
 
-            if (value != null && value.GetType() != underlyingType)
-                try
-                {
-                    value = Convert.ChangeType(value, underlyingType);
-                }
-                catch (Exception e)
-                {
-                    throw new InvalidCastException($"Cannot convert {reader.Value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
-                }
+            if (value != null && value.GetType() != targetUnderlyingType)
+                value = ConvertValue(targetUnderlyingType, value, existingOptional);
 
-         
+            return Activator.CreateInstance(targetOptionalType, value);
+        }
+
+        private static object GetNestedObjectValue(JsonReader reader,
+            Type targetOptionalType,
+            JsonSerializer serializer,
+            Type targetUnderlyingType)
+        {
+             
+            var jObject = JObject.Load(reader);
+            var value = Activator.CreateInstance(targetUnderlyingType);
+            serializer.Populate(jObject.CreateReader(), value);
+            return Activator.CreateInstance(targetOptionalType, value);
+        }
+
+        private static object ConvertValue(Type targetType,
+            object value,
+            IOptional existingOptional)
+        {
             try
             {
-                var jObject = JObject.Load(reader);
-                value = Activator.CreateInstance(underlyingType);
-                serializer.Populate(jObject.CreateReader(), value);
-                return Activator.CreateInstance(objectType, value);
-               }
+                if (targetType == typeof(Guid))
+                    return Guid.Parse((string) value);
+
+                if (targetType.GetTypeInfo().IsEnum)
+                    return Enum.Parse(targetType, (string) value, true);
+
+                return Convert.ChangeType(value, targetType);
+            }
             catch (Exception e)
             {
-                return Activator.CreateInstance(objectType, value);
+                throw new InvalidCastException($"Cannot convert {value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
             }
-           
-            
         }
 
         public override bool CanConvert(Type objectType)
         {
-            //TODO: find a better way
-            return objectType == typeof(Optional<>);
+            if (!objectType.GetTypeInfo().IsGenericType)
+                return false;
+
+            return objectType.GetGenericTypeDefinition() == typeof(Optional<>);
         }
     }
 }
