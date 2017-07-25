@@ -33,13 +33,11 @@ namespace OptionalTypes.JsonConverters
             object existingValue,
             JsonSerializer serializer)
         {
+            //Ensure that we are getting an Optional to convert to, otherwise it's not for us.
             var existingOptional = existingValue as IOptional;
-
             if (existingOptional == null)
                 return null;
 
-           
-         
             var underlyingType = existingOptional.GetUnderlyingType();
 
             switch (reader.TokenType)
@@ -47,6 +45,7 @@ namespace OptionalTypes.JsonConverters
                 case JsonToken.Undefined:
                     // Return null. because the Optional is a struct, it will be created as a non-null instance with isDefined set to false and default value depending on its underlying type.
                     return null;
+
                 case JsonToken.StartObject:
                     return GetNestedObjectValue(reader, targetOptionalType, serializer, underlyingType);
 
@@ -55,7 +54,7 @@ namespace OptionalTypes.JsonConverters
                     var value = Activator.CreateInstance(underlyingType);
                     serializer.Populate(jArray.CreateReader(), value);
                     return Activator.CreateInstance(targetOptionalType, value);
-                  
+
 
                 default:
                     return GetSimpleValue(reader, targetOptionalType, existingOptional, underlyingType);
@@ -87,7 +86,7 @@ namespace OptionalTypes.JsonConverters
             JsonSerializer serializer,
             Type targetUnderlyingType)
         {
-             
+
             var jObject = JObject.Load(reader);
             var value = Activator.CreateInstance(targetUnderlyingType);
             serializer.Populate(jObject.CreateReader(), value);
@@ -98,23 +97,40 @@ namespace OptionalTypes.JsonConverters
             object value,
             IOptional existingOptional)
         {
+
+            if (targetType == typeof(Guid))
+                try
+                {
+
+                    return Guid.Parse((string) value);
+                }
+                catch (Exception)
+                {
+                    throw new CannotCreateGuidException(value);
+                }
+
+            if (targetType.GetTypeInfo().IsEnum)
+                try
+                {
+                    return Enum.Parse(targetType, (string) value, true);
+                }
+                catch (Exception)
+                {
+                    throw new CannotCreateEnumException(value, targetType);
+                }
             try
             {
-                if (targetType == typeof(Guid))
-                    return Guid.Parse((string) value);
-
-                if (targetType.GetTypeInfo().IsEnum)
-                    return Enum.Parse(targetType, (string) value, true);
-
                 return Convert.ChangeType(value, targetType);
             }
             catch (Exception e)
             {
                 throw new InvalidCastException($"Cannot convert {value} to a {existingOptional.GetBaseType()} because of {e.Message}", e);
             }
-        }
 
-        public override bool CanConvert(Type objectType)
+        }
+   
+
+public override bool CanConvert(Type objectType)
         {
             if (!objectType.GetTypeInfo().IsGenericType)
                 return false;

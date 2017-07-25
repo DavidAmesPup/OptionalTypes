@@ -32,5 +32,18 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             Assert.Equal(dto.Value.Value, SomeEnum.TitleCase);
         }
 
+
+        [Fact]
+        public static void Convert_GivenNotExistentEnum_ShouldThrowMeaningfulException()
+        {
+            //Arrange
+            var json = @"{""Value"": ""YouWillNotFindMe""}";
+
+            //Act
+            Assert.Throws<CannotCreateEnumException>(() => SerialisationUtils.Deserialize<EnumDto>(json));
+            
+        }
+
+
     }
 }

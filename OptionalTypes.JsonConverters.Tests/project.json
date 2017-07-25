@@ -3,9 +3,9 @@
   "testRunner": "xunit",
   "dependencies": {
     "xunit": "2.2.0-beta2-build3300",
-    "OptionalTypes": "1.0.7",
+    "OptionalTypes": "1.0.8",
     "Newtonsoft.Json": "10.0.1",
-    "OptionalTypes.JsonConverters": "1.0.7",
+    "OptionalTypes.JsonConverters": "1.0.8",
     "dotnet-test-xunit": "2.2.0-preview2-build1029"
   },
   "frameworks": {
