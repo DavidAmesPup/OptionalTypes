@@ -64,6 +64,6 @@ exec { & dotnet test .\OptionalTypes.Tests\OptionalTypes.Tests.csproj -c Release
 exec { & dotnet test .\OptionalTypes.JsonConverters.Tests\OptionalTypes.JsonConverters.Tests.csproj -c Release }
 
 
-exec { & dotnet pack .\OptionalTypes -c Release -o .\artifacts\ }
-exec { & dotnet pack .\OptionalTypes.JsonConverters -c Release -o .\artifacts\ }
+exec { & dotnet pack .\OptionalTypes -c Release -o .\..\artifacts\ }
+exec { & dotnet pack .\OptionalTypes.JsonConverters -c Release -o .\..\artifacts\ }
 
