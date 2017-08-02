@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Allows backwards compatibility for your JSON based APIs by differentiating between 'Null' and 'Not Supplied'. This is the JsonConverters package which allows correct serialization and deserialization of OptionalTypes in Asp.Net Core and WebAPI.</Description>
+    <VersionPrefix>1.0.9</VersionPrefix>
+    <TargetFrameworks>net461;netstandard1.3</TargetFrameworks>
+    <AssemblyName>OptionalTypes.JsonConverters</AssemblyName>
+    <PackageId>OptionalTypes.JsonConverters</PackageId>
+    <PackageTags>C#;Asp.Net Core;Api;WebApi</PackageTags>
+    <PackageProjectUrl>https://github.com/DavidAmesPup/OptionalTypes/</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/DavidAmesPup/OptionalTypes/master/LICENSE</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OptionalTypes\OptionalTypes.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+
+</Project>
