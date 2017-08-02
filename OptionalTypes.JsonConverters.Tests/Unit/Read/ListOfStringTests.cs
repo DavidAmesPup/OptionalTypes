@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using OptionalTypes.JsonConverters.Tests.TestDtos;
+﻿using OptionalTypes.JsonConverters.Tests.TestDtos;
 using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Read
@@ -23,7 +19,6 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             Assert.NotNull(dto.Values);
             Assert.Equal(2, dto.Values.Value.Count);
             Assert.True(dto.Values.IsDefined);
-
         }
     }
 }

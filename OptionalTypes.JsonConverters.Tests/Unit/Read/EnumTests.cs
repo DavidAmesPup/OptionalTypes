@@ -1,5 +1,4 @@
-﻿using System;
-using OptionalTypes.JsonConverters.Tests.TestDtos;
+﻿using OptionalTypes.JsonConverters.Tests.TestDtos;
 using Xunit;
 
 namespace OptionalTypes.JsonConverters.Tests.Unit.Read
@@ -19,6 +18,17 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             Assert.Equal(dto.Value.Value, SomeEnum.TitleCase);
         }
 
+
+        [Fact]
+        public static void Convert_GivenNotExistentEnum_ShouldThrowMeaningfulException()
+        {
+            //Arrange
+            var json = @"{""Value"": ""YouWillNotFindMe""}";
+
+            //Act
+            Assert.Throws<CannotCreateEnumException>(() => SerialisationUtils.Deserialize<EnumDto>(json));
+        }
+
         [Fact]
         public static void Convert_GivenNotingCaseEnum_ShouldSetValue()
         {
@@ -31,19 +41,5 @@ namespace OptionalTypes.JsonConverters.Tests.Unit.Read
             //Assert
             Assert.Equal(dto.Value.Value, SomeEnum.TitleCase);
         }
-
-
-        [Fact]
-        public static void Convert_GivenNotExistentEnum_ShouldThrowMeaningfulException()
-        {
-            //Arrange
-            var json = @"{""Value"": ""YouWillNotFindMe""}";
-
-            //Act
-            Assert.Throws<CannotCreateEnumException>(() => SerialisationUtils.Deserialize<EnumDto>(json));
-            
-        }
-
-
     }
 }
